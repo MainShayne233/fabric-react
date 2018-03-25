@@ -1,0 +1,6 @@
+# Static artifacts
+/node_modules
+/lib
+
+# OSX system files
+.DS_Store
