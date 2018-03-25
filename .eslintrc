@@ -3,6 +3,7 @@
   "plugins": ["flowtype"],
   "extends": "airbnb",
   "rules": {
-    "arrow-parens": ["error", "always"]
+    "arrow-parens": ["error", "always"],
+    "react/sort-comp": "off"
   }
 }

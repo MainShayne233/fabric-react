@@ -1,3 +1,3 @@
-import NeatComponent from './NeatComponent';
+import FabricCanvas from './FabricCanvas';
 
-export default NeatComponent;
+export default FabricCanvas;

@@ -3,16 +3,14 @@ import React from 'react';
 import Enzyme from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
-import NeatComponent from '../src/NeatComponent';
+import FabricCanvas from '../src/FabricCanvas';
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
-describe('NeatComponent', () => {
-  it('should render the neatMessageProp', () => {
-    const message = 'This is a test message!';
-    const componentInstance = <NeatComponent neatMessageProp={message} />;
+describe('FabricCanvas;', () => {
+  it('should render the canvas', () => {
+    const componentInstance = <FabricCanvas />;
     const mountedComponent = Enzyme.shallow(componentInstance);
-    const messageNode = mountedComponent.find('p');
-    expect(messageNode.text()).to.equal(message);
+    expect(mountedComponent.length).to.equal(1);
   });
 });
