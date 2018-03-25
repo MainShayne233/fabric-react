@@ -1,5 +1,7 @@
 # Fabric-React
 
+[![npm version](https://badge.fury.io/js/fabric-react.svg)](https://badge.fury.io/js/fabric-react)
+
 🚧 Under Construction 🚧
 
 ## Commands
