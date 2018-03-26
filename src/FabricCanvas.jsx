@@ -1,21 +1,43 @@
 // @flow
+/* eslint react/no-did-mount-set-state: "off" */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { fabric } from 'fabric';
+import WidthHandler from './FabricCanvas/WidthHandler';
+import HeightHandler from './FabricCanvas/HeightHandler';
 
 type Props = {
+  width: number,
+  height: number,
 };
 
-class FabricCanvas extends Component<Props> {
+type State = {
+  fabricCanvasReady: boolean,
+};
+
+class FabricCanvas extends Component<Props, State> {
   canvasNode: ?HTMLCanvasElement;
-  fabricObject: fabric.Canvas;
+  fabricCanvasObject: fabric.Canvas;
+
+  constructor(props: Object) {
+    super(props);
+    this.state = { fabricCanvasReady: false };
+  }
 
   componentDidMount() {
-    this.fabricObject = new fabric.Canvas(this.canvasNode);
+    this.fabricCanvasObject = new fabric.Canvas(this.canvasNode);
     this.justAddAFreakingRectangle();
+    this.setState({ fabricCanvasReady: true });
+  }
+
+  initializeSize() {
+    const { width, height } = this.props;
+    this.fabricCanvasObject.setWidth(width);
+    this.fabricCanvasObject.setHeight(height);
   }
 
   componentWillUnmount() {
-    delete this.fabricObject;
+    delete this.fabricCanvasObject;
   }
 
   justAddAFreakingRectangle() {
@@ -27,20 +49,45 @@ class FabricCanvas extends Component<Props> {
       height: 20,
     });
 
-    this.fabricObject.add(rect);
+    this.fabricCanvasObject.add(rect);
+  }
+
+  renderHandlers() {
+    if (this.state.fabricCanvasReady) {
+      return [
+        <WidthHandler
+          key="widthHandler"
+          fabricCanvasObject={this.fabricCanvasObject}
+          width={this.props.width}
+        />,
+        <HeightHandler
+          key="heightHandler"
+          fabricCanvasObject={this.fabricCanvasObject}
+          height={this.props.height}
+        />,
+      ];
+    } else {
+      return null;
+    }
   }
 
   render() {
     return (
-      <canvas
-        ref={(node) => {
-          this.canvasNode = node;
-        }}
-      />
+      <div>
+        <canvas
+          ref={(node) => {
+            this.canvasNode = node;
+          }}
+        />
+        {this.renderHandlers()}
+      </div>
     );
   }
 }
 
-FabricCanvas.propTypes = {};
+FabricCanvas.propTypes = {
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+};
 
 export default FabricCanvas;
