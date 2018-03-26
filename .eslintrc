@@ -1,9 +1,14 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["flowtype"],
-  "extends": "airbnb",
+  "plugins": ["react", "flowtype"],
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended"
+  ],
   "rules": {
     "arrow-parens": ["error", "always"],
-    "react/sort-comp": "off"
+    "react/sort-comp": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   }
 }
